@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import StyledButton from '../components/StyledButton'
 
 export default class HomeScreen extends Component {
     render() {
         return (
-            <View styles={styles.container}>
+            <SafeAreaView styles={styles.container}>
                 <StyledButton 
                        title="Track Fuel"
                        onPress={() => this.props.navigation.navigate('TrackFuelScreen')}
@@ -19,16 +20,15 @@ export default class HomeScreen extends Component {
                     title="App Settings"
                     onPress={() => this.props.navigation.navigate('SettingsScreen')}
                 />
-            </View>
+            </SafeAreaView>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-evenly',
     }
 })

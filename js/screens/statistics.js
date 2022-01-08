@@ -5,7 +5,7 @@ export default class StatisticsScreen extends Component {
     render() {
         return (
             <View styles={styles.container}>
-                <Text>Statistic Screen</Text>
+                <Text style={styles.text}>Statistic Screen</Text>
             </View>
         );
     }
@@ -17,5 +17,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    text: {
+        fontSize: 50,
     }
 })
