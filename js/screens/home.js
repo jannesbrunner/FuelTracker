@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
+import StyledButton from '../components/StyledButton'
+
 export default class HomeScreen extends Component {
     render() {
         return (
             <View styles={styles.container}>
                 <Text>Home Screen</Text>
-                <Button
-                    title="Track Fuel"
-                    onPress={() => this.props.navigation.navigate('TrackFuelScreen')}
+                <StyledButton 
+                       title="Track Fuel"
+                       onPress={() => this.props.navigation.navigate('TrackFuelScreen')}
                 />
-                <Button
+                <StyledButton
                     title="Show Statistics"
                     onPress={() => this.props.navigation.navigate('StatisticsScreen')}
                 />
-                <Button
+                <StyledButton
                     title="App Settings"
                     onPress={() => this.props.navigation.navigate('SettingsScreen')}
                 />
