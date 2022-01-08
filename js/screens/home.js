@@ -7,7 +7,6 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <View styles={styles.container}>
-                <Text>Home Screen</Text>
                 <StyledButton 
                        title="Track Fuel"
                        onPress={() => this.props.navigation.navigate('TrackFuelScreen')}
