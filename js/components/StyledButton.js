@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, View, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 export default function StyledButton(props) {
     if (props.visible || props.visible === undefined) {
         return (
-            <View style={[Style.homeButton, props.style]}>
-                <Button
-                    title={props.title}
-                    onPress={props.onPress}
-                />
-            </View>
+            <Pressable onPress={props.onPress} style={[Style.button, props.buttonStyle]}>
+                <Text
+                    style={[Style.buttonText, props.textStyle]}>
+                    {props.title}    
+                </Text>
+            </Pressable>
         );
     } else {
         return null
@@ -18,7 +18,7 @@ export default function StyledButton(props) {
 }
 
 const Style = StyleSheet.create({
-    homeButton: {
+    button: {
         marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -27,5 +27,12 @@ const Style = StyleSheet.create({
         borderRadius: 4,
         elevation: 3,
         backgroundColor: 'blue',
+    },
+    buttonText: {
+            fontSize: 16,
+            lineHeight: 21,
+            fontWeight: 'bold',
+            letterSpacing: 0.25,
+            color: 'white',
     }
 })
