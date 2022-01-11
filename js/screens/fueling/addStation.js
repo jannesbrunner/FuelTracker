@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Button, KeyboardAvoidingView, StyleSheet, Text } from 'react-native';
 
+import GasStationList from '../../components/gasStationList';
 
 export default class AddStation extends Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = { selectedStation: null }
+    }
+
     render() {
         const { navigation } = this.props
         return (
-            <View styles={styles.container}>
+            <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Gas Station</Text>
+                <GasStationList />
                 <Button 
                     onPress={() => navigation.push('addKilometers')} 
                     title={'Next: Kilometers'}
                     >
                 </Button>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
