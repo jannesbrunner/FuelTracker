@@ -12,6 +12,10 @@ export default class HomeScreen extends Component {
                        title="Track Fuel"
                        onPress={() => this.props.navigation.navigate('TrackFuelScreen')}
                 />
+                 <StyledButton 
+                       title="Manage Fuel Processes"
+                       onPress={() => this.props.navigation.navigate('ManageFuelsScreen')}
+                />
                 <StyledButton
                     title="Show Statistics"
                     onPress={() => this.props.navigation.navigate('StatisticsScreen')}
