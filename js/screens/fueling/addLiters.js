@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 
 const saveFuel = () => {
     alert('All done!');
 }
 
 export default class AddLitersScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { totalLiters: 0 }
+    }
+    
+    handleInput(input) {
+        console.log(`total liters: ${input.toString()}`);
+        this.setState({ totalLiters: input})
+    }
+
     render() {
         const { navigation } = this.props
         return (
-            <View styles={styles.container}>
+            <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Total Liters</Text>
+                <TextInput 
+                    style={styles.textInput}
+                    value={this.state.totalLiters.toString()}
+                    keyboardType={'decimal-pad'}
+                    maxLength={5}  
+                    onChangeText={(input) => this.handleInput(input)}
+                ></TextInput>
                 <Button 
                     onPress={() => { 
                         saveFuel();
@@ -19,7 +36,7 @@ export default class AddLitersScreen extends Component {
                     title={'Finish!'}
                     >
                 </Button>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -33,5 +50,11 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 50,
+    },
+    textInput: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
     }
 })
