@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, KeyboardAvoidingView, StyleSheet, Text } from 'react-native';
 
-import GasStationList from '../../components/gasStationList';
+import GasStationList from '../../components/GasStationList';
 
 export default class AddStation extends Component {
     constructor(props) {
