@@ -7,5 +7,6 @@ const supabaseUrl = db_creds.supabaseUrl;
 const supabaseAnonKey = db_creds.supabaseAnonKey;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-    localStorage: AsyncStorage,
+    localStorage: AsyncStorage, // localStorage not available in RN
+    detectSessionInUrl: false  // not possible in RN
   })
