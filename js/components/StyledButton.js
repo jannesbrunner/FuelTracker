@@ -7,7 +7,7 @@ export default function StyledButton(props) {
             <Pressable onPress={props.onPress} style={[Style.button, props.buttonStyle]}>
                 <Text
                     style={[Style.buttonText, props.textStyle]}>
-                    {props.title}    
+                    {props.title}
                 </Text>
             </Pressable>
         );
@@ -27,12 +27,14 @@ const Style = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
+        uppercase: true
     },
     buttonText: {
-            fontSize: 16,
-            lineHeight: 21,
-            fontWeight: 'bold',
-            letterSpacing: 0.25,
-            color: "#00a400",
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: "#00a400",
+        uppercase: true
     }
 })
