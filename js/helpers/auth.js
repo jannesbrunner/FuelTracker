@@ -1,4 +1,3 @@
-
 import React, { useContext, useState, useEffect, createContext } from 'react';
 import { supabase } from './database';
 
