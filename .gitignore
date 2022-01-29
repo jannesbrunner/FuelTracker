@@ -15,3 +15,6 @@ web-build/
 
 # Supabase Credentials
 js/helpers/db_creds.js 
+
+# Google Maps Takeout Data
+assets/maps_data
