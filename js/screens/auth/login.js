@@ -26,9 +26,7 @@ export default class LoginScreen extends Component {
             //<Text style={styles.text}>Login</Text>
             <View style={styles.container}>
                 <View style={styles.inputView}>
-                    
                     <TextInput
-
                         autoCapitalize="none"
                         placeholder="Enter your eMail"
                         value={userEmail}
@@ -64,20 +62,16 @@ export default class LoginScreen extends Component {
                         error={this.state.falsePasswordOrUser}
                     />
                 </View>
-
                 <HelperText type="error" visible={this.state.falsePasswordOrUser}>
                     E-Mail-Adresse oder Passwort ist falsch
                 </HelperText>
-
                 <TouchableOpacity>
                     <Text style={styles.register_button} /*onPress={() => this.props.navigation.navigate("Registrieren")}*/>Register</Text>
                 </TouchableOpacity>
-                
                 <Button
                     onPress={() => {alert('Logging you in...'), this.props.navigation.navigate('HomeScreen')}}
                     style = {styles.loginBtn}
                 > LOGIN </Button>
-
             </View>
         );
     }
@@ -86,25 +80,29 @@ export default class LoginScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
+        height: '100%',
         backgroundColor: "#fff",
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: 'sans-serif',
     },
     text: {
-        fontSize: 50,
+        fontSize: 10,
     },
     inputView: {
+        flex: 1,    
         width: "100%",
+        height: 20,
         alignItems: "center",
         justifyContent: 'center',
-        paddingTop: 30,
+        paddingTop: 0,
     },
 
     register_button: {
         height: 30,
         color: "#b3b3b3",
-        marginTop: 20,
+        marginTop: 0,
     },
 
     loginBtn:   {
@@ -116,6 +114,5 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
-        uppercase: true
     }
 })
