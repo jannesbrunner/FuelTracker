@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Platform, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import * as Location from 'expo-location';
 
 import { supabase } from '../helpers/database';
+import { sortStationsByLocation } from "../helpers/snippets";
 
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -15,63 +16,61 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 const gasStationList = (props) => {
     const [selectedId, setSelectedId] = useState(null);
     const [stations, setStations] = useState(null);
-    const [error, setError] = useState(null);
-    const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [location, setLocation] = useState(null);
 
-    // get current geo location to sort list to nearest station
+    // get stations from db, then get user location, then sort stations by locations
     useEffect(() => {
         (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
-
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-            console.log(location);
-
-        })();
-        
-        // sort stations according to geo location
-        if(stations) {
+            try {
+                const { body, error, status } = await getData();
+                if(error) {
+                    throw new Error(`${error.message} - ${status}`)
+                }
+                const stations = body;
                 console.log(stations);
-        }
-    }, [stations]); // run if stations get updated
+                const gpsLocation = await getCurrentLocation();
+               
+                if(gpsLocation) {
+                    const sortedStations = sortStationsByLocation(stations, gpsLocation);
+                    setStations(sortedStations);
+                    setLocation(gpsLocation);
+                } else {
+                    setStations(stations);
+                }
 
-    let text = 'Waiting..';
-    if (errorMsg) {
-        text = errorMsg;
-    } else if (location) {
-        text = JSON.stringify(location);
-    }
-
-
-
-    // retrieve data from DB
-    useEffect(() => { // component did mount
-        async function getData() {
-            const { data, error } = await supabase
-                .from('gas_station')
-                .select()
-            return { data, error }
-        }
-        getData().then((response) => {
-            if (response.data) {
-                setStations(response.data);
-                console.log(response.data);
-            } else {
+            } catch (error) {
                 console.log(error);
-                setError(response.error.message);
+                setErrorMsg(error.toString());
             }
-        }).catch(error => {
-            console.log(error);
-            setError(error.toString());
-        });
-    }, [])
+        })();
+    }, []); // run like componentDidMount
 
+    async function getCurrentLocation() {
+        try {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+            return false;
+        }
 
+        let location = await Location.getCurrentPositionAsync({});
+        return location;
+        } catch (error) {
+            return error;
+        }
+    };
+    
+    async function getData() {
+        try {
+            const data = await supabase
+            .from('gas_station')
+            .select()
+        return data
+        } catch (error) {
+            return error
+        }
+    }
 
     const renderItem = ({ item }) => {
         const backgroundColor = item.id === selectedId ? "blue" : "grey";
@@ -89,14 +88,12 @@ const gasStationList = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {!error ? <FlatList
+            {!errorMsg ? <FlatList
                 data={stations}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 extraData={selectedId}
-            /> : <Text>Error: {error}</Text>}
-
-
+            /> : <Text>{errorMsg}</Text>}
         </SafeAreaView>
     );
 };
