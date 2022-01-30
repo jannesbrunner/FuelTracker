@@ -26,8 +26,7 @@ const Style = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 10,
         elevation: 3,
-        backgroundColor: "#b3b3b3",
-        uppercase: true
+        backgroundColor: "#b3b3b3"
     },
     buttonText: {
         fontSize: 16,
@@ -35,6 +34,5 @@ const Style = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 0.25,
         color: "#00a400",
-        uppercase: true
     }
 })
