@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, KeyboardAvoidingView, StyleSheet, Text } from 'react-native';
+import { Platform, View, ActivityIndicator, Button, KeyboardAvoidingView, StyleSheet, Text } from 'react-native';
 
 import * as Location from 'expo-location';
 
@@ -11,11 +11,12 @@ import GasStationList from '../../components/GasStationList';
 export default class AddStation extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             selectedStation: null,
             stations: null,
             location: null,
-            errorMsg: null
+            errorMsg: null,
+            isLoading: true,
         }
     }
 
@@ -27,72 +28,89 @@ export default class AddStation extends Component {
     async init() {
         try {
             const { body, error, status } = await this.getData();
-            if(error) {
+            if (error) {
                 throw new Error(`${error.message} - ${status}`)
             }
             const stations = body;
             console.log(stations);
             const gpsLocation = await this.getCurrentLocation();
-           
-            if(gpsLocation) {
+
+            if (gpsLocation) {
                 const sortedStations = sortStationsByLocation(stations, gpsLocation);
-                this.setState({stations: sortedStations, location: gpsLocation})
+                if(Platform.OS !== "web") { // web needs Google API Key, too expensive...
+                const rgc = await Location.reverseGeocodeAsync({
+                    latitude: parseFloat(gpsLocation.coords.latitude), 
+                    longitude: parseFloat(gpsLocation.coords.longitude)
+                });
+                const location = `${rgc[0].street} ${rgc[0].streetNumber} - ${rgc[0].postalCode} - (${rgc[0].district}) ${rgc[0].region} - ${rgc[0].country}`;
+                console.log(rgc);
+                this.setState({ stations: sortedStations, location, isLoading: false })
+                } else {
+                const location = `Lat: ${gpsLocation.coords.latitude} Long: ${gpsLocation.coords.longitude}`;    
+                this.setState({ stations: sortedStations, location, isLoading: false })   
+                }
             } else {
-                this.setState({stations: stations, location: null})
+                this.setState({ stations: stations, location: null, isLoading: false })
             }
 
         } catch (error) {
             console.log(error);
-            this.setState({errorMsg: error.toString()})
+            this.setState({ errorMsg: error.toString(), isLoading: false })
         }
     }
 
     async getCurrentLocation() {
         try {
             let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-            setErrorMsg('Permission to access location was denied');
-            return false;
-        }
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return false;
+            }
 
-        let location = await Location.getCurrentPositionAsync({});
-        return location;
+            let location = await Location.getCurrentPositionAsync({});
+            return location;
         } catch (error) {
             return error;
         }
     };
-    
+
     async getData() {
         try {
             const data = await supabase
-            .from('gas_station')
-            .select()
-        return data
+                .from('gas_station')
+                .select()
+            return data
         } catch (error) {
             return error
         }
     }
-    
+
 
     render() {
         const { navigation } = this.props;
-        const { stations, errorMsg } = this.state;
+        const { stations, errorMsg, isLoading, location } = this.state;
         let list;
-        
-        if(errorMsg) { list = <Text>{errorMsg}</Text>; }
-        else { list = 
-        <View>
-        <GasStationList stations={stations} />
-            <Button 
-                onPress={() => navigation.push('addKilometers')} 
-                title={'Next: Kilometers'}
-                >
-            </Button>
-        </View>; }
+        if (isLoading) { list = <ActivityIndicator size="large" /> }
+        else {
+            if (errorMsg) { list = <Text>{errorMsg}</Text>; }
+            else {
+                list =
+                <View>
+                    <GasStationList stations={stations} />
+                    <Button
+                        onPress={() => navigation.push('addKilometers')}
+                        title={'Next: Kilometers'}
+                    >
+                    </Button>
+                </View>;
+            }
+        }
         return (
             <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Gas Station</Text>
                 {list}
+                {location ? <Text>Your location: {location}</Text> : 
+                <Text>Could not locate you! Sorry!</Text>}
             </KeyboardAvoidingView>
         );
     }
