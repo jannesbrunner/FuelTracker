@@ -1,29 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const DATA = [ // Dummy Data
-    {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "Aral",
-    },
-    {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        title: "Shell",
-    },
-    {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
-        title: "Jet",
-    },
-];
+import { supabase } from '../helpers/database';
 
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-        <Text style={[styles.title, textColor]}>{item.title}</Text>
+        <Text style={[styles.title, textColor]}>{item.name}</Text>
+        <Text>{item.location}</Text>
     </TouchableOpacity>
 );
 
-const gasStationList = () => {
+const gasStationList = (props) => {
     const [selectedId, setSelectedId] = useState(null);
+    const [stations, setStations] = useState(null);
+    const [error, setError] = useState(null);
+
+    // retrieve data from DB
+    useEffect( () => { // component did mount
+        async function getData() {
+            const { data, error } = await supabase
+            .from('gas_station')
+            .select()
+            return { data, error }
+        }
+        getData().then( (response) => {
+            if(response.data) {
+                setStations(response.data);
+                console.log(response.data);
+            } else {
+                console.log(error);
+                setError(response.error.message);
+            }
+        }).catch( error => {
+            console.log(error);
+            setError(error.toString());
+        });
+    }, [])
 
     const renderItem = ({ item }) => {
         const backgroundColor = item.id === selectedId ? "blue" : "grey";
@@ -41,12 +53,14 @@ const gasStationList = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                data={DATA}
+            {!error ? <FlatList
+                data={stations}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 extraData={selectedId}
-            />
+            /> : <Text>Error: {error}</Text>}
+            
+            
         </SafeAreaView>
     );
 };
