@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Layout, Text, TopNav } from 'react-native-rapi-ui';
 import { Ionicons } from '@expo/vector-icons';
-import { Button, TextInput, HelperText } from 'react-native-paper';
+import { Button, TextInput, HelperText, Text } from 'react-native-paper';
 import StyledButton from '../../components/StyledButton'
 
 export default class LoginScreen extends Component {
@@ -27,6 +26,7 @@ export default class LoginScreen extends Component {
             <View style={styles.container}>
                 <View style={styles.inputView}>
                     <TextInput
+                        style={styles.inputStyle}
                         autoCapitalize="none"
                         placeholder="Enter your eMail"
                         value={userEmail}
@@ -41,6 +41,7 @@ export default class LoginScreen extends Component {
                 </View>
                 <View style={styles.inputView}>
                     <TextInput
+                        style={styles.inputStyle}
                         autoCapitalize="none"
                         placeholder="Enter your password"
                         secureTextEntry={this.state.visible}
@@ -81,7 +82,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        height: '100%',
         backgroundColor: "#fff",
         alignItems: 'center',
         justifyContent: 'center',
@@ -91,12 +91,16 @@ const styles = StyleSheet.create({
         fontSize: 10,
     },
     inputView: {
-        flex: 1,    
+        height: "100%",
         width: "100%",
         height: 20,
         alignItems: "center",
         justifyContent: 'center',
         paddingTop: 0,
+    },
+
+    inputStyle: {
+        
     },
 
     register_button: {
