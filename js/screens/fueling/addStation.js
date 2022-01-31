@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Platform, View, ActivityIndicator, Button, KeyboardAvoidingView, StyleSheet, Text } from 'react-native';
+import { Platform, 
+        View, 
+        ActivityIndicator, 
+        Button, 
+        KeyboardAvoidingView, 
+        StyleSheet, 
+        Pressable,
+        Text } from 'react-native';
 
 import * as Location from 'expo-location';
 
@@ -7,6 +14,7 @@ import { supabase } from '../../helpers/database';
 import { sortStationsByLocation } from "../../helpers/snippets";
 
 import GasStationList from '../../components/GasStationList';
+import CreateGasStation from '../../components/CreateGasStation';
 
 export default class AddStation extends Component {
     constructor(props) {
@@ -14,11 +22,18 @@ export default class AddStation extends Component {
         this.state = {
             selectedStation: null,
             stations: null,
-            location: null,
+            location: "",
+            gpsLocation: null,
             errorMsg: null,
             isLoading: true,
+            modalVisible: false,
         }
     }
+
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
+        this.init();
+      }
 
     componentDidMount() {
         // get stations from db, then get user location, then sort stations by location
@@ -42,12 +57,12 @@ export default class AddStation extends Component {
                     latitude: parseFloat(gpsLocation.coords.latitude), 
                     longitude: parseFloat(gpsLocation.coords.longitude)
                 });
-                const location = `${rgc[0].street} ${rgc[0].streetNumber} - ${rgc[0].postalCode} - (${rgc[0].district}) ${rgc[0].region} - ${rgc[0].country}`;
+                const location = `${rgc[0].street} ${rgc[0].streetNumber} - ${rgc[0].postalCode} - (${rgc[0].district}) ${rgc[0].region}`;
                 console.log(rgc);
-                this.setState({ stations: sortedStations, location, isLoading: false })
+                this.setState({ stations: sortedStations, location, isLoading: false, gpsLocation})
                 } else {
                 const location = `Lat: ${gpsLocation.coords.latitude} Long: ${gpsLocation.coords.longitude}`;    
-                this.setState({ stations: sortedStations, location, isLoading: false })   
+                this.setState({ stations: sortedStations, location, isLoading: false, gpsLocation})   
                 }
             } else {
                 this.setState({ stations: stations, location: null, isLoading: false })
@@ -88,7 +103,7 @@ export default class AddStation extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { stations, errorMsg, isLoading, location } = this.state;
+        const { stations, errorMsg, isLoading, location, modalVisible, gpsLocation } = this.state;
         let list;
         if (isLoading) { list = <ActivityIndicator size="large" /> }
         else {
@@ -96,7 +111,22 @@ export default class AddStation extends Component {
             else {
                 list =
                 <View>
+                    <CreateGasStation 
+                        modalVisible={modalVisible} 
+                        closeCallBack={this.setModalVisible}
+                        initialAddress={location.startsWith("Lat:") ? "" : location}
+                        initialLat={gpsLocation.coords.latitude}
+                        initialLong={gpsLocation.coords.longitude}
+                        />
+                    {location ? <Text>Your location: {location}</Text> : 
+                    <Text>Could not locate you! Sorry!</Text>}
                     <GasStationList stations={stations} />
+                    <Pressable
+                    style={[styles.button, styles.buttonOpen]}
+                    onPress={() => this.setModalVisible(true)}
+                    >
+                        <Text style={styles.textStyle}>Add Station</Text>
+                    </Pressable>
                     <Button
                         onPress={() => navigation.push('addKilometers')}
                         title={'Next: Kilometers'}
@@ -109,8 +139,6 @@ export default class AddStation extends Component {
             <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Gas Station</Text>
                 {list}
-                {location ? <Text>Your location: {location}</Text> : 
-                <Text>Could not locate you! Sorry!</Text>}
             </KeyboardAvoidingView>
         );
     }
