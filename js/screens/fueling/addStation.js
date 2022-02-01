@@ -28,6 +28,8 @@ export default class AddStation extends Component {
             isLoading: true,
             modalVisible: false,
         }
+        this.selectedStation = this.selectedStation.bind(this);
+        this.goToKilometers = this.goToKilometers.bind(this);
     }
 
     setModalVisible = (visible) => {
@@ -100,10 +102,20 @@ export default class AddStation extends Component {
         }
     }
 
+    selectedStation(itemId) {
+        let selectedStation = this.state.stations.find( (item) => {
+            return item.id === itemId;
+        })
+       this.setState({selectedStation});
+    }
+
+    goToKilometers() {
+        const { navigation } = this.props;
+        navigation.push('addKilometers', { location: this.state.selectedStation })
+    }
 
     render() {
-        const { navigation } = this.props;
-        const { stations, errorMsg, isLoading, location, modalVisible, gpsLocation } = this.state;
+        const { stations, errorMsg, isLoading, location, modalVisible, gpsLocation, selectedStation } = this.state;
         let list;
         if (isLoading) { list = <ActivityIndicator size="large" /> }
         else {
@@ -120,7 +132,8 @@ export default class AddStation extends Component {
                         />
                     {location ? <Text>Your location: {location}</Text> : 
                     <Text>Could not locate you! Sorry!</Text>}
-                    <GasStationList stations={stations} />
+                    <GasStationList stations={stations} 
+                    passSelectedId={this.selectedStation} />
                     <Pressable
                     style={[styles.button, styles.buttonOpen]}
                     onPress={() => this.setModalVisible(true)}
@@ -128,8 +141,9 @@ export default class AddStation extends Component {
                         <Text style={styles.textStyle}>Add Station</Text>
                     </Pressable>
                     <Button
-                        onPress={() => navigation.push('addKilometers')}
+                        onPress={() => this.goToKilometers()}
                         title={'Next: Kilometers'}
+                        disabled={!selectedStation}
                     >
                     </Button>
                 </View>;

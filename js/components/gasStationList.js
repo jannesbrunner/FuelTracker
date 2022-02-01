@@ -11,7 +11,8 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 );
 
 const gasStationList = (props) => {
-    const [selectedId, setSelectedId] = useState(null);        
+    const [selectedId, setSelectedId] = useState(null);  
+    const { passSelectedId } = props;      
 
     const renderItem = ({ item }) => {
         const backgroundColor = item.id === selectedId ? "blue" : "grey";
@@ -20,7 +21,10 @@ const gasStationList = (props) => {
         return (
             <Item
                 item={item}
-                onPress={() => setSelectedId(item.id)}
+                onPress={() => { 
+                    setSelectedId(item.id);
+                    passSelectedId(item.id); 
+                }}
                 backgroundColor={{ backgroundColor }}
                 textColor={{ color }}
             />
