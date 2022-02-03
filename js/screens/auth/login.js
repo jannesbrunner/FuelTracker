@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
-        uppercase: true,
         fontWeight: 'bold'
     }
 })
