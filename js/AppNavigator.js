@@ -11,6 +11,7 @@ import SettingsScreen from './screens/settings';
 import StatisticsScreen from './screens/statistics';
 import TrackFuelScreen from './screens/trackFuel';
 import ManageFuelsScreen from './screens/manageFuels';
+import LoginScreen from './screens/auth/login'
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,11 @@ export default function AppNavigator() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen
+                    name="LoginScreen"
+                    component={LoginScreen}
+                    options={{ title: 'Login' }}
+                />
                 <Stack.Screen
                     name="HomeScreen"
                     component={HomeScreen}
