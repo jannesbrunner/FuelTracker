@@ -19,7 +19,8 @@ export default function StyledButton(props) {
 
 const Style = StyleSheet.create({
     button: {
-        marginBottom: 30,
+        marginTop: 15,
+        marginBottom: 15,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,

@@ -26,7 +26,7 @@ export default class LoginScreen extends Component {
             //<Text style={styles.text}>Login</Text>
             <View style={styles.container}>
                 <View style={styles.inputView}>
-                    
+
                     <TextInput
 
                         autoCapitalize="none"
@@ -73,11 +73,11 @@ export default class LoginScreen extends Component {
                 <TouchableOpacity>
                     <Text style={styles.register_button} onPress={() => this.props.navigation.navigate("RegisterScreen")}>Register</Text>
                 </TouchableOpacity>
-                
-                <Button
-                    onPress={() => {alert('Logging you in...'), this.props.navigation.navigate('HomeScreen')}}
-                    style = {styles.loginBtn}
-                > LOGIN </Button>
+
+                <StyledButton
+                    title="LOGIN"
+                    onPress={() => this.onLogin, this.props.navigation.navigate('HomeScreen')}
+                />
 
             </View>
         );
@@ -104,11 +104,12 @@ const styles = StyleSheet.create({
 
     register_button: {
         height: 30,
-        color: "#b3b3b3",
+        color: "#00a400",
         marginTop: 20,
+        marginBottom: 10
     },
 
-    loginBtn:   {
+    loginBtn: {
         marginTop: 30,
         alignItems: 'center',
         justifyContent: 'center',
@@ -117,6 +118,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
-        uppercase: true
+        uppercase: true,
+        fontWeight: 'bold'
     }
 })

@@ -146,6 +146,7 @@ export default class RegisterScreen extends Component {
                     onPress={() => alert('Register you in...')}
                     status="primary"
                     style={styles.registerBtn}
+                    color="#00a400"
                 > SIGN UP
                 </Button>
 
@@ -153,6 +154,7 @@ export default class RegisterScreen extends Component {
                     onPress={() => navigation.goBack()}
                     style={styles.goBackBtn}
                     status="danger"
+                    color="#00a400"
                 > BACK TO LOGIN
                 </Button>
             </View>
@@ -165,21 +167,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#88888",
-        height: "100%",
+        alignItems: 'center',
+        justifyContent: 'center',
         fontFamily: 'sans-serif',
     },
     text: {
         fontSize: 50,
     },
-    TextInput: {
-        marginLeft: 20,
-        //fontFamily: 'Montserrat-Medium',
-        color: "#595959",
-        width: "85%"
-    },
+
     registerBtn: {
         marginTop: 30,
         alignItems: 'center',
