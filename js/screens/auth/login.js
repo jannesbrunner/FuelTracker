@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Layout, Text, TopNav } from 'react-native-rapi-ui';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, TextInput, HelperText } from 'react-native-paper';
 import StyledButton from '../../components/StyledButton'
@@ -78,6 +77,7 @@ export default class LoginScreen extends Component {
                     title="LOGIN"
                     onPress={() => this.onLogin, this.props.navigation.navigate('HomeScreen')}
                 />
+                
 
             </View>
         );
