@@ -31,10 +31,11 @@ export default class LoginScreen extends Component {
                         placeholder="Enter your eMail"
                         value={userEmail}
                         mode="outlined"
+                        width="50%"
                         activeOutlineColor="#00a400"
                         onChangeText={(val) => this.setState({ userEmail: val })}
-                        leftContent={
-                            <Ionicons name="mail" size={20} color={'grey'} />
+                        left={
+                            <TextInput.Icon name="mail" />
                         }
                         error={this.state.falsePasswordOrUser}
                     />
@@ -49,8 +50,8 @@ export default class LoginScreen extends Component {
                         mode="outlined"
                         activeOutlineColor="#00a400"
                         onChangeText={(val) => this.setState({ userPassword: val })}
-                        leftContent={
-                            <Ionicons name="lock-closed" size={20} color={'grey'} />
+                        left={
+                            <TextInput.Icon name="lock" />
                         }
                         right={
                             <TextInput.Icon
@@ -67,12 +68,14 @@ export default class LoginScreen extends Component {
                     E-Mail-Adresse oder Passwort ist falsch
                 </HelperText>
                 <TouchableOpacity>
-                    <Text style={styles.register_button} /*onPress={() => this.props.navigation.navigate("Registrieren")}*/>Register</Text>
+                    <Text style={styles.register_button} onPress={() => this.props.navigation.navigate("RegisterScreen")}>Register</Text>
                 </TouchableOpacity>
-                <Button
-                    onPress={() => {alert('Logging you in...'), this.props.navigation.navigate('HomeScreen')}}
-                    style = {styles.loginBtn}
-                > LOGIN </Button>
+
+                <StyledButton
+                    title="LOGIN"
+                    onPress={() => this.onLogin, this.props.navigation.navigate('HomeScreen')}
+                />
+
             </View>
         );
     }
@@ -105,11 +108,12 @@ const styles = StyleSheet.create({
 
     register_button: {
         height: 30,
-        color: "#b3b3b3",
-        marginTop: 0,
+        color: "#00a400",
+        marginTop: 20,
+        marginBottom: 10
     },
 
-    loginBtn:   {
+    loginBtn: {
         marginTop: 30,
         alignItems: 'center',
         justifyContent: 'center',
@@ -118,5 +122,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
+        uppercase: true,
+        fontWeight: 'bold'
     }
 })
