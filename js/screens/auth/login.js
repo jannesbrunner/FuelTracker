@@ -41,6 +41,7 @@ export default class LoginScreen extends Component {
                         error={this.state.falsePasswordOrUser}
                     />
                 </View>
+
                 <View style={styles.inputView}>
                     <TextInput
                         autoCapitalize="none"
@@ -75,7 +76,7 @@ export default class LoginScreen extends Component {
 
                 <StyledButton
                     title="LOGIN"
-                    onPress={() => this.onLogin, this.props.navigation.navigate('HomeScreen')}
+                    onPress={() => this.props.navigation.navigate('HomeScreen')}
                 />
                 
 
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: 'center',
-        paddingTop: 30,
+        marginTop: 30,
     },
 
     register_button: {
