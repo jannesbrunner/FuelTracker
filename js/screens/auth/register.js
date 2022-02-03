@@ -148,14 +148,17 @@ export default class RegisterScreen extends Component {
                     color="#00a400"
                 > SIGN UP
                 </Button>
+                <StyledButton
+                    title="SIGN IN"
+                    status="primary"
+                    onPress={() => alert('Register you in...'), navigation.goBack()}
+                />
 
-                <Button
-                    onPress={() => navigation.goBack()}
-                    style={styles.goBackBtn}
+                <StyledButton
+                    title="BACK TO LOGIN"
                     status="danger"
-                    color="#00a400"
-                > BACK TO LOGIN
-                </Button>
+                    onPress={() => navigation.goBack()}
+                />
             </View>
 
         );
