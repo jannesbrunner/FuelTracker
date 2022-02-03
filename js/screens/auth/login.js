@@ -73,7 +73,7 @@ export default class LoginScreen extends Component {
 
                 <StyledButton
                     title="LOGIN"
-                    onPress={() => this.onLogin, this.props.navigation.navigate('HomeScreen')}
+                    onPress={() => { this.onLogin; this.props.navigation.navigate('HomeScreen')}}
                 />
 
             </View>
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
-        uppercase: true,
         fontWeight: 'bold'
     }
 })

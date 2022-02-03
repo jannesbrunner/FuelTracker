@@ -186,7 +186,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
-        uppercase: true
     },
     goBackBtn: {
         marginTop: 30,
@@ -197,7 +196,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b8b8b8",
-        uppercase: true
     },
     inputView: {
         width: "100%",
