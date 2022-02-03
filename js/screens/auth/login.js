@@ -76,7 +76,7 @@ export default class LoginScreen extends Component {
                     title="LOGIN"
                     onPress={() => this.props.navigation.navigate('HomeScreen')}
                 />
-                
+
 
             </View>
         );
@@ -101,25 +101,13 @@ const styles = StyleSheet.create({
         height: 20,
         alignItems: "center",
         justifyContent: 'center',
-        marginTop: 30,
+        marginTop: 50,
     },
 
     register_button: {
         height: 30,
         color: "#00a400",
-        marginTop: 20,
-        marginBottom: 10
+        marginTop: 30,
     },
 
-    loginBtn: {
-        marginTop: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 10,
-        elevation: 3,
-        backgroundColor: "#b3b3b3",
-        fontWeight: 'bold'
-    }
 })

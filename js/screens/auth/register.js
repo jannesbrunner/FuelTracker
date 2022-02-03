@@ -47,7 +47,7 @@ export default class RegisterScreen extends Component {
                         autoCapitalize="none"
                         style={styles.TextInput}
                         mode="outlined"
-                        activeOutlineColor="#D98302"
+                        activeOutlineColor="#00a400"
                         placeholder="Enter your Username"
                         value={userName}
                         onChangeText={(val) => this.setState({ userName: val })}
@@ -64,7 +64,7 @@ export default class RegisterScreen extends Component {
                         placeholder="Enter your eMail"
                         value={userEmail}
                         mode="outlined"
-                        activeOutlineColor="#D98302"
+                        activeOutlineColor="#00a400"
                         onChangeText={(val) => null}
                         left={
                             <TextInput.Icon name="mail" />
@@ -77,6 +77,7 @@ export default class RegisterScreen extends Component {
                     <TextInput
                         style={{ marginBottom: 100 }}
                         style={styles.TextInput}
+                        activeOutlineColor="#00a400"
                         autoCapitalize="none"
                         placeholder="Enter your password"
                         secureTextEntry={true}
@@ -107,6 +108,7 @@ export default class RegisterScreen extends Component {
                         style={{ marginBottom: 100 }}
                         style={styles.TextInput}
                         autoCapitalize="none"
+                        activeOutlineColor="#00a400"
                         placeholder="Confirm your password"
                         secureTextEntry={true}
                         value={userPasswordConfirm}
@@ -130,28 +132,23 @@ export default class RegisterScreen extends Component {
                     />
                 </View>
 
-                <Text>Enter your Birthday</Text>
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={userDateOfBirth}
-                    maximumDate={new Date()}
-                    mode={'date'}
-                    locale="de-DE"
-                    display="default"
-                />
+                <View style={styles.inputView, {marginTop:30, marginBottom:30}}>
+                    <Text>Enter your Birthday</Text>
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={userDateOfBirth}
+                        maximumDate={new Date()}
+                        mode={'date'}
+                        locale="de-DE"
+                        display="default"
+                    />
+                </View>
 
 
-                <Button
-                    onPress={() => { alert('Register you in...'); navigation.goBack()}}
-                    status="primary"
-                    style={styles.registerBtn}
-                    color="#00a400"
-                > SIGN UP
-                </Button>
                 <StyledButton
                     title="SIGN IN"
                     status="primary"
-                    onPress={() => {alert('Register you in...'); navigation.goBack()}}
+                    onPress={() => { alert('Register you in...'); navigation.goBack() }}
                 />
 
                 <StyledButton
@@ -159,7 +156,7 @@ export default class RegisterScreen extends Component {
                     status="danger"
                     onPress={() => navigation.goBack()}
                 />
-            </View>
+            </View >
 
         );
     }
@@ -178,7 +175,7 @@ const styles = StyleSheet.create({
     },
 
     registerBtn: {
-        marginTop: 30,
+        marginTop: 50,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,
@@ -201,7 +198,7 @@ const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: 'center',
-        paddingTop: 30,
+        marginTop: 10
     },
 
 })
