@@ -19,15 +19,15 @@ export default function StyledButton(props) {
 
 const Style = StyleSheet.create({
     button: {
-        marginBottom: 30,
+        marginTop: 15,
+        marginBottom: 15,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,
         paddingHorizontal: 32,
         borderRadius: 10,
         elevation: 3,
-        backgroundColor: "#b3b3b3",
-        uppercase: true
+        backgroundColor: "#b3b3b3"
     },
     buttonText: {
         fontSize: 16,
@@ -35,6 +35,5 @@ const Style = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 0.25,
         color: "#00a400",
-        uppercase: true
     }
 })

@@ -11,7 +11,8 @@ import SettingsScreen from './screens/settings';
 import StatisticsScreen from './screens/statistics';
 import TrackFuelScreen from './screens/trackFuel';
 import ManageFuelsScreen from './screens/manageFuels';
-import LoginScreen from './screens/auth/login'
+import LoginScreen from './screens/auth/login';
+import RegisterScreen from './screens/auth/register';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ export default function AppNavigator() {
                     name="LoginScreen"
                     component={LoginScreen}
                     options={{ title: 'Login' }}
+                />
+                 <Stack.Screen
+                    name="RegisterScreen"
+                    component={RegisterScreen}
+                    options={{ title: 'Register' }}
                 />
                 <Stack.Screen
                     name="HomeScreen"

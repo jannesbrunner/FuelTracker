@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Layout, Text, TopNav } from 'react-native-rapi-ui';
 import { Ionicons } from '@expo/vector-icons';
-import { Button, TextInput, HelperText } from 'react-native-paper';
+import { Button, TextInput, HelperText, Text } from 'react-native-paper';
 import StyledButton from '../../components/StyledButton'
 
 export default class LoginScreen extends Component {
@@ -26,23 +25,24 @@ export default class LoginScreen extends Component {
             //<Text style={styles.text}>Login</Text>
             <View style={styles.container}>
                 <View style={styles.inputView}>
-                    
                     <TextInput
-
+                        style={styles.inputStyle}
                         autoCapitalize="none"
                         placeholder="Enter your eMail"
                         value={userEmail}
                         mode="outlined"
+                        width="50%"
                         activeOutlineColor="#00a400"
                         onChangeText={(val) => this.setState({ userEmail: val })}
-                        leftContent={
-                            <Ionicons name="mail" size={20} color={'grey'} />
+                        left={
+                            <TextInput.Icon name="mail" />
                         }
                         error={this.state.falsePasswordOrUser}
                     />
                 </View>
                 <View style={styles.inputView}>
                     <TextInput
+                        style={styles.inputStyle}
                         autoCapitalize="none"
                         placeholder="Enter your password"
                         secureTextEntry={this.state.visible}
@@ -50,8 +50,8 @@ export default class LoginScreen extends Component {
                         mode="outlined"
                         activeOutlineColor="#00a400"
                         onChangeText={(val) => this.setState({ userPassword: val })}
-                        leftContent={
-                            <Ionicons name="lock-closed" size={20} color={'grey'} />
+                        left={
+                            <TextInput.Icon name="lock" />
                         }
                         right={
                             <TextInput.Icon
@@ -64,19 +64,17 @@ export default class LoginScreen extends Component {
                         error={this.state.falsePasswordOrUser}
                     />
                 </View>
-
                 <HelperText type="error" visible={this.state.falsePasswordOrUser}>
                     E-Mail-Adresse oder Passwort ist falsch
                 </HelperText>
-
                 <TouchableOpacity>
-                    <Text style={styles.register_button} /*onPress={() => this.props.navigation.navigate("Registrieren")}*/>Register</Text>
+                    <Text style={styles.register_button} onPress={() => this.props.navigation.navigate("RegisterScreen")}>Register</Text>
                 </TouchableOpacity>
-                
-                <Button
-                    onPress={() => {alert('Logging you in...'), this.props.navigation.navigate('HomeScreen')}}
-                    style = {styles.loginBtn}
-                > LOGIN </Button>
+
+                <StyledButton
+                    title="LOGIN"
+                    onPress={() => { this.props.navigation.navigate('HomeScreen')}}
+                />
 
             </View>
         );
@@ -86,28 +84,36 @@ export default class LoginScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         backgroundColor: "#fff",
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: 'sans-serif',
     },
     text: {
-        fontSize: 50,
+        fontSize: 10,
     },
     inputView: {
+        height: "100%",
         width: "100%",
+        height: 20,
         alignItems: "center",
         justifyContent: 'center',
-        paddingTop: 30,
+        paddingTop: 0,
+    },
+
+    inputStyle: {
+        
     },
 
     register_button: {
         height: 30,
-        color: "#b3b3b3",
+        color: "#00a400",
         marginTop: 20,
+        marginBottom: 10
     },
 
-    loginBtn:   {
+    loginBtn: {
         marginTop: 30,
         alignItems: 'center',
         justifyContent: 'center',
@@ -116,6 +122,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 3,
         backgroundColor: "#b3b3b3",
-        uppercase: true
+        fontWeight: 'bold'
     }
 })

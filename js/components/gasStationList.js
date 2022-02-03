@@ -1,29 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const DATA = [ // Dummy Data
-    {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "Aral",
-    },
-    {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        title: "Shell",
-    },
-    {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
-        title: "Jet",
-    },
-];
+
 
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-        <Text style={[styles.title, textColor]}>{item.title}</Text>
+        <Text style={[styles.title, textColor]}>{item.company}</Text>
+        <Text>{item.address}</Text>
     </TouchableOpacity>
 );
 
-const gasStationList = () => {
-    const [selectedId, setSelectedId] = useState(null);
+const gasStationList = (props) => {
+    const [selectedId, setSelectedId] = useState(null);  
+    const { passSelectedId } = props;      
 
     const renderItem = ({ item }) => {
         const backgroundColor = item.id === selectedId ? "blue" : "grey";
@@ -32,7 +21,10 @@ const gasStationList = () => {
         return (
             <Item
                 item={item}
-                onPress={() => setSelectedId(item.id)}
+                onPress={() => { 
+                    setSelectedId(item.id);
+                    passSelectedId(item.id); 
+                }}
                 backgroundColor={{ backgroundColor }}
                 textColor={{ color }}
             />
@@ -41,12 +33,12 @@ const gasStationList = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                data={DATA}
+          <FlatList
+                data={props.stations}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 extraData={selectedId}
-            />
+           />
         </SafeAreaView>
     );
 };

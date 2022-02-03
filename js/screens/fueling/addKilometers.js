@@ -5,6 +5,7 @@ export default class AddKilometersScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { kilometers: 0 }
+        console.log(props.route)
     }
     
     handleInput(input) {
@@ -14,9 +15,12 @@ export default class AddKilometersScreen extends Component {
     
     render() {
         const { navigation } = this.props
+        const address = this.props.route.params.location.address;
+        const company = this.props.route.params.location.company;
         return (
             <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Total Kilometer</Text>
+                <Text>At Station: {company} ({address})</Text>
                 <TextInput 
                     style={styles.textInput}
                     value={this.state.kilometers.toString()}
