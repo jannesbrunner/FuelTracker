@@ -73,7 +73,7 @@ export default class LoginScreen extends Component {
 
                 <StyledButton
                     title="LOGIN"
-                    onPress={() => { this.onLogin; this.props.navigation.navigate('HomeScreen')}}
+                    onPress={() => { this.props.navigation.navigate('HomeScreen')}}
                 />
 
             </View>
