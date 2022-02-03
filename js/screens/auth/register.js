@@ -142,7 +142,7 @@ export default class RegisterScreen extends Component {
 
 
                 <Button
-                    onPress={() => alert('Register you in...')}
+                    onPress={() => { alert('Register you in...'); navigation.goBack()}}
                     status="primary"
                     style={styles.registerBtn}
                     color="#00a400"
@@ -151,7 +151,7 @@ export default class RegisterScreen extends Component {
                 <StyledButton
                     title="SIGN IN"
                     status="primary"
-                    onPress={() => alert('Register you in...'), navigation.goBack()}
+                    onPress={() => {alert('Register you in...'); navigation.goBack()}}
                 />
 
                 <StyledButton
