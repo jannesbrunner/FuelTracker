@@ -65,7 +65,10 @@ export default class AddLitersScreen extends Component {
                     text2: 'Your refueling was tracked!'
                 });
                 const { navigation } = this.props;
-                navigation.push('HomeScreen');
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'HomeScreen'}],
+                  });
             }
 
         } catch (error) {
