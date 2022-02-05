@@ -84,7 +84,7 @@ export default class AddKilometersScreen extends Component {
                 <TextInput 
                     style={styles.textInput}
                     value={this.state.kilometers.toString()}
-                    keyboardType={'numeric'}
+                    keyboardType={'number-pad'}
                     maxLength={7}  
                     onChangeText={(input) => this.handleInput(input)}
                 ></TextInput>
