@@ -24,7 +24,14 @@ export function sortStationsByLocation(stations, location) {
 }
 
 export function createLocationString(locationObj) {
-  return `${location.company} - ${location.address}`
+  return `${locationObj.company} - ${locationObj.address}`
+}
+
+export function checkNumericInput(input) {
+  let check = true;
+  if(parseFloat(input) <= 0) check = false;
+  if(isNaN(input) || input.length == 0) check = false;
+  return check;
 }
 
 
