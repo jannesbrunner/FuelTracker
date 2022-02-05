@@ -13,6 +13,8 @@ import { Text, TextInput, HelperText } from 'react-native-paper';
 import * as Location from 'expo-location';
 import StyledButton from '../../components/StyledButton'
 
+import Toast from 'react-native-toast-message';
+
 import { supabase } from '../../helpers/database';
 import { sortStationsByLocation } from "../../helpers/snippets";
 
@@ -43,6 +45,12 @@ export default class AddStation extends Component {
     componentDidMount() {
         // get stations from db, then get user location, then sort stations by location
         this.init();
+        Toast.show({
+            type: 'info',
+            text1: 'Patience please',
+            text2: 'We retrieve your favorite gas stations...'
+          });
+        
     }
 
     async init() {
@@ -76,6 +84,11 @@ export default class AddStation extends Component {
         } catch (error) {
             console.log(error);
             this.setState({ errorMsg: error.toString(), isLoading: false })
+            Toast.show({
+                type: 'error',
+                text1: 'Oh no...',
+                text2: 'Could not retrieve stations: ' + error.toString()
+              });
         }
     }
 

@@ -1,22 +1,38 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, Button, KeyboardAvoidingView } from 'react-native';
+import { createLocationString, checkNumericInput } from '../../helpers/snippets';
 
 export default class AddPricePerLiterScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = { pricePl: 0 }
+        this.state = { 
+            pricePl: 0,
+            priceCorrect: false
+        }
+        this.goToTotalLiters = this.goToTotalLiters.bind(this);
     }
 
     handleInput(input) {
-        console.log(input)
-        this.setState({ pricePl: input.toString()}) 
+        console.log(checkNumericInput(input));
+        this.setState({ pricePl: input.toString(), priceCorrect: checkNumericInput(input)}) 
+    }
+
+    goToTotalLiters() {
+        const { navigation } = this.props;
+        navigation.push('addTotalLiters',  { 
+            location: this.props.route.params.location, 
+            kilometers: this.props.route.params.kilometers,
+            pricePerLiter: this.state.pricePl
+         })
     }
     
     render() {
-        const { navigation } = this.props
+        const { priceCorrect } = this.state
         return (
             <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Price Per Liter</Text>
+                <Text>At Station: {createLocationString(this.props.route.params.location)}</Text>
+                <Text>Car Kilometers: {this.props.route.params.kilometers}</Text>
                 <TextInput 
                     style={styles.textInput}
                     value={this.state.pricePl.toString()}
@@ -25,8 +41,9 @@ export default class AddPricePerLiterScreen extends Component {
                     onChangeText={(input) => this.handleInput(input)}
                 ></TextInput>
                 <Button 
-                    onPress={() => navigation.push('addTotalLiters')} 
+                    onPress={() => this.goToTotalLiters()} 
                     title={'Next: Add Total amount of Liters'}
+                    disabled={!priceCorrect}
                     >
                 </Button>
             </KeyboardAvoidingView>
