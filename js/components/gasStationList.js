@@ -6,7 +6,7 @@ import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity }
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
         <Text style={[styles.title, textColor]}>{item.company}</Text>
-        <Text>{item.address}</Text>
+        <Text style={[styles.text]}>{item.address}</Text>
     </TouchableOpacity>
 );
 
@@ -15,8 +15,8 @@ const gasStationList = (props) => {
     const { passSelectedId } = props;      
 
     const renderItem = ({ item }) => {
-        const backgroundColor = item.id === selectedId ? "blue" : "grey";
-        const color = item.id === selectedId ? 'white' : 'black';
+        const backgroundColor = item.id === selectedId ? "#00a400" : "#b3b3b3";
+        const color = item.id === selectedId ? "#b3b3b3" : "#00a400";
 
         return (
             <Item
@@ -47,12 +47,18 @@ const styles = StyleSheet.create({
     container: {
     },
     item: {
-        padding: 5,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        paddingTop: 5,
+        paddingBottom: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        marginVertical: 10,
+        borderRadius: 10,
+        width: "100%",
+        alignItems: 'center',
     },
     title: {
         fontSize: 22,
+        marginBottom: 10
     },
 });
 
