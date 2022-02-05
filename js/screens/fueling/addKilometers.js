@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, KeyboardAvoidingView } from 'react-native';
-import { parse } from 'react-native-svg';
 import Toast from 'react-native-toast-message';
 import { supabase } from '../../helpers/database';
-import { createLocationString } from '../../helpers/snippets';
+import { createLocationString, checkNumericInput } from '../../helpers/snippets';
 export default class AddKilometersScreen extends Component {
     constructor(props) {
         super(props);
@@ -45,15 +44,13 @@ export default class AddKilometersScreen extends Component {
     }
     
     handleInput(input) {
-        this.setState({ correctKilometers: true });
         // do we got a last km value from db?
-        if( this.state.lastKilometers ) {
-            if(parseFloat(input) <= this.state.lastKilometers) {
-                this.setState({ correctKilometers: false });
-            } 
+        const checkDBvalue = (input) => {
+            if( this.state.lastKilometers ) {
+                return parseFloat(input) > this.state.lastKilometers
+            } else return true
         }
-        if( parseFloat(input) <= 0 ) this.setState({ correctKilometers: false }); 
-        if( isNaN(input) || input.length == 0) this.setState({ correctKilometers: false });
+        this.setState({ correctKilometers: checkNumericInput(input) && checkDBvalue(input) });        
         this.setState({ kilometers: input.toString()})
     }
 
@@ -74,16 +71,16 @@ export default class AddKilometersScreen extends Component {
     }
 
     goToPricePerLiter() {
-        navigation.push('addPricePerLiter',  { location: props.route.params.location, kilometers: this.state.kilometers })
+        const { navigation } = this.props;
+        navigation.push('addPricePerLiter',  { location: this.props.route.params.location, kilometers: this.state.kilometers })
     }
     
     render() {
-        const { navigation } = this.props
-        const { correctKilometers: correctMileage } = this.state;
+        const { correctKilometers } = this.state;
         return (
             <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Total Kilometer</Text>
-                <Text>At Station: {createLocationString(props.route.params.location)}</Text>
+                <Text>At Station: {createLocationString(this.props.route.params.location)}</Text>
                 <TextInput 
                     style={styles.textInput}
                     value={this.state.kilometers.toString()}
@@ -94,7 +91,7 @@ export default class AddKilometersScreen extends Component {
                 <Button 
                     title={'Next: Add Price Per Liter'}
                     onPress={() => this.goToPricePerLiter()}
-                    disabled={!correctMileage}
+                    disabled={!correctKilometers}
                     >
                 </Button>
             </KeyboardAvoidingView>

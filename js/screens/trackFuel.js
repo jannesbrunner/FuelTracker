@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import addStation from './fueling/addStation';
 import addKilometersScreen from './fueling/addKilometers';
 import addPricePerLiterScreen from './fueling/addPricePerLiter';
-import addTotalLitersScreen from './fueling/addLiters';
+import addTotalLitersScreen from './fueling/addTotalLiters';
 
 
 const Stack = createNativeStackNavigator();
