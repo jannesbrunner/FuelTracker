@@ -76,11 +76,13 @@ export default class AddKilometersScreen extends Component {
     }
     
     render() {
-        const { correctKilometers } = this.state;
+        const { correctKilometers, lastKilometers, kilometers } = this.state;
         return (
             <KeyboardAvoidingView styles={styles.container}>
                 <Text style={styles.text}>Add Total Kilometer</Text>
                 <Text>At Station: {createLocationString(this.props.route.params.location)}</Text>
+                <Text>{lastKilometers ? `Last KM value: ${lastKilometers}` : `No previous KM record found`}</Text>
+                {lastKilometers ? <Text>You drove {(kilometers - lastKilometers) > 0 ? kilometers - lastKilometers : 0 } km.</Text> : <Text></Text>}
                 <TextInput 
                     style={styles.textInput}
                     value={this.state.kilometers.toString()}
