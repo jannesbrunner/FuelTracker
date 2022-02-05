@@ -1,5 +1,6 @@
 import React, { Component, createContext } from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 import { useAuth, AuthProvider } from './js/helpers/auth'
 import AppNavigator from './js/AppNavigator';
 
@@ -12,6 +13,7 @@ export default function App() {
     <PaperProvider>
       <AuthProvider>
         <AppNavigator />
+        <Toast />
       </AuthProvider>
     </PaperProvider>
   );
