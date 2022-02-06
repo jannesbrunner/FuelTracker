@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, ActivityIndicator } from 'react-native';
 import { DataTable } from 'react-native-paper';
+import StyledButton from '../components/StyledButton';
 
 import { supabase } from '../helpers/database';
 
@@ -51,15 +52,16 @@ export default class manageFuelsScreen extends Component {
         return (
             <View styles={styles.container}>
                 <Text style={styles.text}>Manage Fuels</Text>
-                {error ? <Text>There was an error: {error} </Text> : <Text>Your have {fuels.length} recorded fuelings</Text>}
+                {error ? <Text>There was an error: {error} </Text> : <Text style={styles.textSmall}>You have {fuels.length} recorded fuelings</Text>}
                 {isLoading ? <ActivityIndicator size="large" /> : list}
 
-
-                <Button
+                <View style={styles.button}>
+                <StyledButton
                     onPress={() => navigation.goBack()}
                     title={'Back'}
                 >
-                </Button>
+                </StyledButton>
+                </View>
             </View>
         );
     }
@@ -91,12 +93,27 @@ export default class manageFuelsScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flexDirection: 'column',
+        backgroundColor: "#fff",
         alignItems: 'center',
-        justifyContent: 'center'
+        fontFamily: 'sans-serif',
+        flex: 1
     },
     text: {
-        fontSize: 50,
+        fontSize: 40,
+        marginBottom: 15,
+        marginTop: 10,
+        textAlign: "center"
+    },
+    textSmall: {
+        marginTop: 10,
+        marginBottom: 15,
+        textAlign: "center",
+        color: "#00a400",
+    },
+    button: {
+        margin: 15,
+        marginLeft: 30,
+        marginRight: 30
     }
 })

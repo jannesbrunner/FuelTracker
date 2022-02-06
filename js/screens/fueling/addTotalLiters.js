@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { checkNumericInput, createLocationString } from '../../helpers/snippets';
-
+import {
+    Platform,
+    View,
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Pressable,
+    TouchableOpacity
+} from 'react-native';
+import { Button, TextInput, HelperText, Text } from 'react-native-paper';
 import { supabase } from '../../helpers/database';
+import StyledButton from '../../components/StyledButton';
 
 export default class AddLitersScreen extends Component {
     constructor(props) {
@@ -91,46 +100,64 @@ export default class AddLitersScreen extends Component {
     render() {
         const { correctLiters } = this.state
         return (
+            <View style={styles.container}>
             <KeyboardAvoidingView styles={styles.container}>
-                <Text style={styles.text}>Add Total Liters</Text>
-                <Text>At Station: {createLocationString(this.props.route.params.location)}</Text>
-                <Text>Car Kilometers: {this.props.route.params.kilometers}</Text>
-                <Text>Price per Liter: {this.props.route.params.pricePerLiter}</Text>
-                <Text>Total Price: {this.state.totalPrice}</Text>
-                <TextInput
-                    style={styles.textInput}
-                    value={this.state.totalLiters.toString()}
-                    keyboardType={'decimal-pad'}
-                    maxLength={5}
-                    onChangeText={(input) => this.handleInput(input)}
-                ></TextInput>
-                <Button
-                    onPress={() => {
-                        this.saveFuel();
-                    }}
+                <View style={styles.inputView}>
+                    <Text style={styles.text}>Add Total Liters</Text>
+                    <Text style={styles.textSmall}>At Station: {createLocationString(this.props.route.params.location)}</Text>
+                    <Text style={styles.textSmall}>Car Kilometers: {this.props.route.params.kilometers}</Text>
+                    <Text style={styles.textSmall}>Price per Liter: {this.props.route.params.pricePerLiter}</Text>
+                    <Text style={styles.textSmall}>Total Price: {this.state.totalPrice}</Text>
+                    <TextInput
+                        value={this.state.totalLiters.toString()}
+                        keyboardType={'decimal-pad'}
+                        maxLength={5}
+                        placeholder="Enter your eMail"
+                        mode="outlined"
+                        width="50%"
+                        activeOutlineColor="#00a400"
+                        onChangeText={(input) => this.handleInput(input)}
+                    />
+                </View>
+
+                <StyledButton
                     title={'Save & Finish!'}
+                    onPress={() => this.saveFuel()}
                     disabled={!correctLiters}
                 >
-                </Button>
+                </StyledButton>
+
             </KeyboardAvoidingView>
+        </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flexDirection: 'column',
+        backgroundColor: "#fff",
         alignItems: 'center',
-        justifyContent: 'center'
+        //justifyContent: 'center',
+        fontFamily: 'sans-serif',
+        flex: 1
     },
     text: {
-        fontSize: 50,
+        fontSize: 40,
+        marginBottom: 15,
+        marginTop: 10,
+        textAlign: "center"
     },
-    textInput: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
+    textStyle: {
+        marginBottom: 5,
+        marginTop: 30,
+        color: "#00a400",
+        textAlign: "center"
+
+    },
+    textSmall: {
+        marginTop: 10,
+        textAlign: "center",
+        color: "#00a400",
     }
 })
