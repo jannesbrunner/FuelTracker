@@ -160,19 +160,22 @@ class GasPrices extends Component {
                 <Text style={styles.modalText}>Current Prices near by your location</Text>
                 <Card.Title
                   title="Diesel"
+                  titleStyle={{color:"#00a400"}}
                   subtitle={`Min: ${prices.diesel.min} | Max: ${prices.diesel.max} `}
                 />
-                 <Card.Title
+                <Card.Title
                   title="E5"
+                  titleStyle={{color:"#00a400"}}
                   subtitle={`Min: ${prices.e5.min} | Max: ${prices.e5.max} `}
                 />
-                 <Card.Title
+                <Card.Title
                   title="E10"
+                  titleStyle={{color:"#00a400"}}
                   subtitle={`Min: ${prices.e10.min} | Max: ${prices.e10.max} `}
                 />
               </View>}
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={styles.button}
                 onPress={() => this.props.closeCallBack()}
               >
                 <Text style={styles.textStyle}>OK</Text>
@@ -208,24 +211,28 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
+    marginTop: 15,
+    marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    elevation: 2,
+    backgroundColor: "#b3b3b3"
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: "#00a400",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: 15,
+    fontWeight: 'bold',
   }
 });
 
