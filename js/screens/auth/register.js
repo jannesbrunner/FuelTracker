@@ -82,7 +82,6 @@ export default class RegisterScreen extends Component {
                         placeholder="Enter your password"
                         secureTextEntry={true}
                         value={userPassword}
-                        style={styles.TextInput}
                         mode="outlined"
                         secureTextEntry={this.state.visiblePassword}
                         activeOutlineColor="#D98302"
@@ -106,7 +105,6 @@ export default class RegisterScreen extends Component {
 
                     <TextInput
                         style={{ marginBottom: 100 }}
-                        style={styles.TextInput}
                         autoCapitalize="none"
                         activeOutlineColor="#00a400"
                         placeholder="Confirm your password"
@@ -114,7 +112,6 @@ export default class RegisterScreen extends Component {
                         value={userPasswordConfirm}
                         style={styles.TextInput}
                         mode="outlined"
-                        activeOutlineColor="#D98302"
                         secureTextEntry={this.state.visiblePasswordRepeat}
                         onChangeText={(val) => null}
                         right={

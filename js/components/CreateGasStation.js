@@ -26,13 +26,13 @@ class CreateGasStation extends Component {
             let response = await supabase
                 .from('gas_station')
                 .insert([
-                    { 
+                    {
                         user_id: 1,
                         company: this.state.company,
                         address: this.state.address,
                         long: this.state.long,
                         lat: this.state.lat
-                     }
+                    }
                 ])
         } catch (error) {
             console.log(error)
@@ -41,8 +41,8 @@ class CreateGasStation extends Component {
     }
 
     inputCheck() {
-        const { company, address, long, lat} = this.state;
-        if(company.length < 3 || address.length < 5 || long.length < 5 || lat.length <5 ) {
+        const { company, address, long, lat } = this.state;
+        if (company.length < 3 || address.length < 5 || long.length < 5 || lat.length < 5) {
             return false
         }
         return true
@@ -64,23 +64,35 @@ class CreateGasStation extends Component {
                         <View style={styles.modalView}>
                             <Text style={styles.modalText}>Create a new Gas Station</Text>
                             <TextInput
+                                style={styles.inputStyle}
+                                mode="outlined"
+                                activeOutlineColor="#00a400"
                                 label="Address"
                                 value={this.state.address}
                                 onChangeText={text => this.setState({ address: text })}
                             />
                             <TextInput
+                                style={styles.inputStyle}
+                                mode="outlined"
+                                activeOutlineColor="#00a400"
                                 label="Company"
                                 value={this.state.company}
                                 placeholder=""
                                 onChangeText={text => this.setState({ company: text })}
                             />
                             <TextInput
+                                style={styles.inputStyle}
+                                mode="outlined"
+                                activeOutlineColor="#00a400"
                                 label="Lat"
                                 value={this.state.lat}
                                 placeholder={initialLat}
                                 onChangeText={text => this.setState({ lat: text })}
                             />
                             <TextInput
+                                style={styles.inputStyle}
+                                mode="outlined"
+                                activeOutlineColor="#00a400"
                                 label="Long"
                                 value={this.state.long}
                                 placeholder={initialLong}
@@ -91,12 +103,12 @@ class CreateGasStation extends Component {
                             <Pressable
                                 style={[styles.button, styles.buttonOpen]}
                                 onPress={() => {
-                                    if(this.inputCheck) {
-                                        this.createNewStation().then( (data) => {
+                                    if (this.inputCheck) {
+                                        this.createNewStation().then((data) => {
                                             alert(`OK! => ${data}`);
                                             console.log(data);
                                             closeCallBack(false);
-                                        }).catch( (error) => {
+                                        }).catch((error) => {
                                             console.log(error);
                                             alert(`Error! => ${error}`)
                                         })
@@ -142,15 +154,16 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     button: {
-        borderRadius: 20,
+        borderRadius: 10,
         padding: 10,
-        elevation: 2
+        elevation: 2,
+        marginTop: 10
     },
     buttonOpen: {
-        backgroundColor: "#F194FF",
+        backgroundColor: "#00a400",
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        backgroundColor: "#b3b3b3",
     },
 
     textStyle: {
@@ -160,8 +173,10 @@ const styles = StyleSheet.create({
     },
     modalText: {
         marginBottom: 15,
-        textAlign: "center"
-    }
+        textAlign: "center",
+        fontSize: 20
+    },
+    
 });
 
 export default CreateGasStation;
