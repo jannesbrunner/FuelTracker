@@ -3,10 +3,21 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import StyledButton from '../components/StyledButton'
 
+import GasPrices from '../components/GasPrices';
+
 //style To Do: gesamter Bildschirm Hintergrund weiß
 
 
 export default class HomeScreen extends Component {
+
+    state = {
+        showGasPrices: false
+    }
+
+    togglePrices = () => {
+        this.setState({showGasPrices: !this.state.showGasPrices})
+    }
+
     render() {
         return (
             <View styles={styles.container}>
@@ -28,6 +39,14 @@ export default class HomeScreen extends Component {
                         <StyledButton
                             title="App Settings"
                             onPress={() => this.props.navigation.navigate('SettingsScreen')}
+                        />
+                         <StyledButton
+                            title="Show Gas Prices"
+                            onPress={() => this.togglePrices()}
+                        />
+                        <GasPrices 
+                            closeCallBack={this.togglePrices}
+                            modalVisible={this.state.showGasPrices}
                         />
                     </SafeAreaView>
                 </View>
