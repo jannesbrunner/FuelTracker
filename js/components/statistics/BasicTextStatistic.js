@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Card, Title, Paragraph, Headline, Subheading } from 'react-native-paper';
+import { inlineStyles } from 'react-native-svg';
 
 import { 
     getTimeFrame, 
@@ -15,12 +16,12 @@ const BasicTextStatistics = (props) => {
     const { data } = props;
 
     return (
-        <View>
-            <Headline>Basic</Headline>
+        <View  styles={styles.container}>
+            <Headline style={styles.headline}>Basic</Headline>
             <Subheading>Data from: {getTimeFrame(data).from} to: {getTimeFrame(data).to}</Subheading>
             <Card>
                 <Card.Content>
-                    <Title>Driven total</Title>
+                    <Title >Driven total</Title>
                     <Paragraph>{getTotalKM(data)} km</Paragraph>
                 </Card.Content>
             </Card>
@@ -48,5 +49,16 @@ const BasicTextStatistics = (props) => {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    headline: {
+        color: "#00a400",
+        marginTop: 20
+    },
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+     },
+})
 
 export default BasicTextStatistics;

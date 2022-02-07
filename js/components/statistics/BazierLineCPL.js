@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import { Card, Title, Paragraph, Headline, Subheading } from 'react-native-paper';
 import {
     LineChart,
@@ -11,9 +11,9 @@ const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
 
 const chartConfig = {
-    backgroundColor: "#e26a00",
-    backgroundGradientFrom: "#fb8c00",
-    backgroundGradientTo: "#ffa726",
+    backgroundColor: "#00a400",
+    backgroundGradientFrom: "#00a400",
+    backgroundGradientTo: "#00a400",
     decimalPlaces: 2, // optional, defaults to 2dp
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -59,7 +59,7 @@ const BazierLineCPL = (props) => {
 
     return (
         <View>
-            <Headline>Price / L over period</Headline>
+            <Headline style={styles.headline}>Price / L over period</Headline>
             <LineChart
                 data={{
                     labels: PricePerLiter().x,
@@ -81,7 +81,7 @@ const BazierLineCPL = (props) => {
                     borderRadius: 16
                 }}
             />
-            <Headline>Fueled Liters per fueling</Headline>
+            <Headline style={styles.headline}>Fueled Liters per fueling</Headline>
             <BarChart
                 style={{
                     marginVertical: 8,
@@ -106,5 +106,12 @@ const BazierLineCPL = (props) => {
     )
 
 }
+
+const styles = StyleSheet.create({
+    headline: {
+        color: "#00a400",
+        marginTop: 20
+    },
+})
 
 export default BazierLineCPL;
