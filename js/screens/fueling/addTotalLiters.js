@@ -112,7 +112,7 @@ export default class AddLitersScreen extends Component {
                         value={this.state.totalLiters.toString()}
                         keyboardType={'decimal-pad'}
                         maxLength={5}
-                        placeholder="Enter your eMail"
+                        placeholder="Enter total Liters"
                         mode="outlined"
                         width="50%"
                         activeOutlineColor="#00a400"
